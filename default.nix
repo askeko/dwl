@@ -19,7 +19,8 @@
 stdenv.mkDerivation ({
   name = "dwl-custom";
 
-  src = builtins.path { name = "dwl-custom"; path = ./.; };
+  src = builtins.filterSource
+    (path: type: (toString path) != (toString ./.git)) ./.;
 
   nativeBuildInputs = [
     installShellFiles
