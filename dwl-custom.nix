@@ -12,7 +12,7 @@
 , wayland-scanner
 , wayland
 , wayland-protocols
-, wlroots
+, wlroots_0_16
 , writeText
 , xcbutilwm
 , xwayland
@@ -40,7 +40,7 @@ stdenv.mkDerivation ({
     pixman
     wayland
     wayland-protocols
-    wlroots
+    wlroots_0_16
   ] ++ lib.optionals enableXWayland [
     libX11
     xcbutilwm
