@@ -17,7 +17,7 @@
 }:
 
 stdenv.mkDerivation ({
-  name = "dwl-custom";
+  name = "dwl-HEAD";
 
   src = builtins.filterSource
     (path: type: (toString path) != (toString ./.git)) ./.;
