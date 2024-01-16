@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation ({
   pname = "dwl";
-  version = "0.4";
+  version = "0.5";
 
   src = builtins.path { name = "dwl-custom"; path = ./.; };
 
