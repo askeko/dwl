@@ -16,6 +16,7 @@
 , writeText
 , xcbutilwm
 , xwayland
+, gnumake
 , enableXWayland ? true
 , conf ? null
 }:
