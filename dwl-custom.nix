@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, fetchFromGitHub
 , installShellFiles
 , libX11
 , libinput
@@ -7,13 +8,16 @@
 , libxkbcommon
 , pixman
 , pkg-config
+, substituteAll
 , wayland-scanner
 , wayland
 , wayland-protocols
-, wlroots_0_16
+, wlroots
+, writeText
 , xcbutilwm
 , xwayland
-, gnumake
+, enableXWayland ? true
+, conf ? null
 }:
 
 stdenv.mkDerivation ({
@@ -35,11 +39,11 @@ stdenv.mkDerivation ({
     pixman
     wayland
     wayland-protocols
-    wlroots_0_16
+    wlroots
+  ] ++ lib.optionals enableXWayland [
     libX11
     xcbutilwm
     xwayland
-    wayland-scanner
   ];
 
   outputs = [ "out" "man" ];
@@ -51,8 +55,15 @@ stdenv.mkDerivation ({
     "MANDIR=$(man)/share/man"
   ];
 
+  preBuild = ''
+    makeFlagsArray+=(
+      XWAYLAND=${lib.optionalString enableXWayland "-DXWAYLAND"}
+      XLIBS=${lib.optionalString enableXWayland "xcb\\ xcb-icccm"}
+    )
+  '';
+
   meta = {
-    homepage = "https://github.com/tomaskallup/dwl/";
+    homepage = "https://github.com/askeko/dwl/";
     description = "Dynamic window manager for Wayland";
     longDescription = ''
       dwl is a compact, hackable compositor for Wayland based on wlroots. It is
